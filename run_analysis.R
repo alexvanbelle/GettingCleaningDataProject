@@ -41,13 +41,12 @@ LoadData <- function(){
     #determine columns to keep
     names <- colnames(fullSet)
     indexImportant <- names == "subject" | names == "activityID" | grepl(".*[.](mean|std)[.].*", names)
-    
-    # keep the right columns and merge to get the activity
+    # keep the right columns
     fullSet <- fullSet[,indexImportant]
+    
     # subject should be considered as factor because it's a way to clearly identify a subject
     fullSet$subject <- as.factor(fullSet$subject)
-    
-    
+        
     # merge and remove the activityID since we already have the activity
     fullSet <- merge(activityLabels, fullSet, by = "activityID")
     fullSet <- fullSet[,colnames(fullSet) != "activityID"]
